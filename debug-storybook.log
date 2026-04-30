@@ -1,0 +1,22 @@
+[13:32:19.476] [INFO] storybook v10.1.11
+[13:32:19.697] [ERROR] [38;2;241;97;97mSB_CORE-SERVER_0007 (MainFileEvaluationError): Storybook couldn't evaluate your [33m.storybook/main.ts[39m file.
+
+Original error:
+[37mSyntaxError: Unexpected token '<'
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:107:18)
+    at #translate (node:internal/modules/esm/loader:546:20)
+    at afterLoad (node:internal/modules/esm/loader:596:29)[39m[39m
+    at loadMainConfig (file://./node_modules/storybook/dist/_node-chunks/chunk-Q4DOC7HF.js:11701:11)
+    at async buildDevStandalone (file://./node_modules/storybook/dist/core-server/index.js:7149:16)
+    at async withTelemetry (file://./node_modules/storybook/dist/_node-chunks/chunk-2372JZ52.js:209:12)
+    at async dev (file://./node_modules/storybook/dist/bin/core.js:2734:3)
+    at async _Command.<anonymous> (file://./node_modules/storybook/dist/bin/core.js:2801:92)
+[13:32:19.700] [WARN] Broken build, fix the error above.
+You may need to refresh the browser.
+[13:32:19.705] [WARN]   Failed to load preset: "/srv/http/najaf/expo/.storybook/main.ts"
+[13:32:19.705] [ERROR] [38;2;241;97;97mSyntaxError: Unexpected token '<'[39m
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:107:18)
+    at #translate (node:internal/modules/esm/loader:546:20)
+    at afterLoad (node:internal/modules/esm/loader:596:29)
