@@ -41,6 +41,10 @@ function useBLE() {
 
   useEffect(() => {
     log("useBLE: ---------- Mount -------------");
+    if (!bleManager) {
+      log("useBLE: BlePlx native module missing — use a dev build (expo run:android), not Expo Go.");
+      return;
+    }
     bleManager.state().then((state) => setBleState(state));
     if (bluSubscription.current) return; // Already listening
     bluSubscription.current = bleManager.onStateChange((state) => {
@@ -205,7 +209,8 @@ function useBLE() {
   const isDuplicateDevice = (devices: Device[], nextDevice: Device) =>
     devices.findIndex((device) => nextDevice.id === device.id) > -1;
 
-  const scanForPeripherals = () =>
+  const scanForPeripherals = () => {
+    if (!bleManager) return;
     bleManager.startDeviceScan(null, null, (error, device) => {
       if (error) {
         log(error);
@@ -223,9 +228,11 @@ function useBLE() {
         });
       }
     });
+  };
 
   const nameToUUIDForIOS = async (id: DeviceId | null, name: string) => {
     if (Platform.OS == "android" && id) return id;
+    if (!bleManager) return false;
 
     return new Promise((resolve) => {
       setTimeout(resolve, 10_000);
@@ -249,12 +256,14 @@ function useBLE() {
     deviceId: DeviceId,
     service: UUID
   ) => {
+    if (!bleManager) return undefined;
     const connectedDevices = await bleManager.connectedDevices([service]);
     return connectedDevices.find((d) => d.id === deviceId);
   };
 
   // can call multiple times safely
   const connectToDevice = async (id: DeviceId, service: UUID) => {
+    if (!bleManager) return;
     let device: Device;
     try {
       const isConnected = await bleManager.isDeviceConnected(id);

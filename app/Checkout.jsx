@@ -26,13 +26,17 @@ import { useTranslation } from "react-i18next";
 import {
   ActivityIndicator,
   Image,
+  NativeModules,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
   processColor,
+  Alert,
 } from "react-native";
+
+const myFatoorahNativeReady = !!NativeModules.MFModule;
 import { Button } from "~/components/ui/button";
 import {
   Table,
@@ -288,6 +292,13 @@ const Checkout = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
+    if (!myFatoorahNativeReady) {
+      Alert.alert(
+        "Payments unavailable",
+        "MyFatoorah needs native code. Rebuild and install the app with npx expo run:android — Expo Go cannot load this SDK."
+      );
+      return;
+    }
     (async () => {
       // console.log("+init");
       await configure();
@@ -304,6 +315,7 @@ const Checkout = () => {
   }, []);
 
   useEffect(() => {
+    if (!myFatoorahNativeReady) return;
     if (sessionId == "") return;
     // console.log("+loadCardView from useEffect");
     loadCardView();
@@ -514,11 +526,17 @@ const Checkout = () => {
 
         <CheckoutItems {...checkoutItems} />
 
-        <MFCardPaymentView
-          ref={cardPaymentView}
-          style={styles.cardView}
-          paymentStyle={paymentCardStyle()}
-        />
+        {myFatoorahNativeReady ? (
+          <MFCardPaymentView
+            ref={cardPaymentView}
+            style={styles.cardView}
+            paymentStyle={paymentCardStyle()}
+          />
+        ) : (
+          <Text style={styles.instructions}>
+            Card payment requires a native dev build (expo run:android).
+          </Text>
+        )}
       </View>
       <View style={styles.container2}>
         {isPayBtnVisible && (

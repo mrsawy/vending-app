@@ -30,6 +30,13 @@ export default function MachineCard({ _id, name, qrCode, type }) {
   const { info, setMachine } = useMachine();
 
   const bluetoothModal = async () => {
+    if (!bleManager) {
+      Alert.alert(
+        "Bluetooth unavailable",
+        "Install the development build from expo run:android (not Expo Go) so Bluetooth can load."
+      );
+      return false;
+    }
     const bleState = await bleManager.state();
     if (bleState === "PoweredOn") return true;
     if (bleState === "PoweredOff") {

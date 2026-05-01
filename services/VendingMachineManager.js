@@ -1,7 +1,6 @@
 // VendingMachineManager.js
 // الإصدار النهائي: يستخدم دوال قياسية بدلاً من مكتبة Buffer
 
-import { BleManager } from "react-native-ble-plx";
 // لا حاجة لاستيراد Buffer بعد الآن
 
 // 1. تعريف الثوابت (Constants)
@@ -12,8 +11,6 @@ const HANDSHAKE_COMMAND = [
   0x06, 0x8e, 0xfb, 0x00, 0x17, 0x0c, 0xa9, 0x68, 0x23, 0x7b, 0x4c, 0xd2, 0x2d,
   0xdf, 0xfa, 0x66, 0x5b, 0x4f, 0xe8, 0x00,
 ];
-
-const bleManager = new BleManager();
 
 /**
  * دالة لإنشاء أمر فتح القفل

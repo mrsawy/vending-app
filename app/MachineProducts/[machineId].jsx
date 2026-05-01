@@ -309,7 +309,6 @@ function MachineBluetooth2({
     listenForMessages,
     disconnectFromDevice,
     writeMessages,
-    bleManager,
   } = useBLE();
   const { connectedDevice } = useMachine();
   const {

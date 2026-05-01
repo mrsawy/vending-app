@@ -1,4 +1,10 @@
-export const baseUrl = "https://server.moaddi-app.com/";
+// API + sockets + raw image paths use this origin. Override for local/ngrok (must match your moaddi-server base URL).
+const rawOrigin =
+  typeof process.env.EXPO_PUBLIC_SERVER_ORIGIN === "string" &&
+  process.env.EXPO_PUBLIC_SERVER_ORIGIN.trim() !== ""
+    ? process.env.EXPO_PUBLIC_SERVER_ORIGIN.trim().replace(/\/?$/, "/")
+    : "https://server.moaddi-app.com/";
+export const baseUrl = rawOrigin;
 export const socketAddress = baseUrl;
 export const address = baseUrl + "api/v1/";
 
